@@ -7,6 +7,10 @@ This is a minimal full-stack expense tracker that allows users to record and rev
 The application consists of a FastAPI backend and a Streamlit frontend, with a focus on correctness, simplicity, and maintainability within a time-constrained environment.
 
 ---
+## Live Demo
+
+Frontend: <your-streamlit-link>
+Backend API: <your-render-link>
 
 ## Features
 
@@ -130,6 +134,8 @@ streamlit run app.py
 
 ---
 
+* Ensure the backend is running before starting the frontend.
+
 ## Future Improvements
 
 * Replace SQLite with PostgreSQL for scalability
@@ -140,6 +146,17 @@ streamlit run app.py
 * Add category-wise summaries and analytics
 
 ---
+
+## Deployment Notes
+
+The application is deployed as two separate services:
+
+- The FastAPI backend is deployed on Render.
+- The Streamlit frontend is deployed on Streamlit Community Cloud.
+
+The frontend communicates with the backend via HTTP requests.
+
+Note: SQLite is used for persistence. On some hosting platforms, the filesystem may be ephemeral, so data may not persist across restarts. In a production system, this would be replaced with a managed database such as PostgreSQL.
 
 ## Notes
 
