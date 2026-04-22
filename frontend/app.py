@@ -130,16 +130,29 @@ def main() -> None:
 
     categories = get_available_categories(all_expenses)
 
+    if "selected_category" not in st.session_state:
+        st.session_state.selected_category = "All"
+
+    if "selected_sort" not in st.session_state:
+        st.session_state.selected_sort = "Newest first"
+
     filter_col, sort_col, total_col = st.columns([2, 2, 1])
 
     with filter_col:
-        selected_category = st.selectbox("Filter by category", options=categories)
+        if st.session_state.selected_category not in categories:
+            st.session_state.selected_category = "All"
+
+        selected_category = st.selectbox(
+            "Filter by category",
+            options=categories,
+            key="selected_category",
+        )
 
     with sort_col:
         selected_sort = st.selectbox(
             "Sort order",
             options=["Newest first"],
-            index=0,
+            key="selected_sort",
         )
 
     sort_value = "date_desc" if selected_sort == "Newest first" else None
