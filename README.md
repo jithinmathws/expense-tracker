@@ -12,6 +12,7 @@ The application consists of a FastAPI backend and a Streamlit frontend, with a f
 
 Frontend: https://expense-tracker-ui.streamlit.app/
 Backend API: https://expense-tracker-api-mz99.onrender.com/
+Backend Docs: https://expense-tracker-api-mz99.onrender.com/docs
 
 ---
 
