@@ -7,8 +7,11 @@ import pandas as pd
 import requests
 import streamlit as st
 
-API_BASE_URL = os.getenv("API_BASE_URL", "http://127.0.0.1:8000")
 
+API_BASE_URL = st.secrets.get(
+    "API_BASE_URL",
+    os.getenv("API_BASE_URL", "http://127.0.0.1:8000"),
+)
 
 st.set_page_config(page_title="Expense Tracker", page_icon="💸", layout="wide")
 

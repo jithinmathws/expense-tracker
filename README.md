@@ -136,6 +136,11 @@ streamlit run app.py
 
 * Ensure the backend is running before starting the frontend.
 
+## Live Demo
+
+Frontend: https://expense-tracker-ui.streamlit.app/
+Backend API: https://your-render-backend-url.onrender.com
+
 ## Future Improvements
 
 * Replace SQLite with PostgreSQL for scalability
