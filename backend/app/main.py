@@ -6,7 +6,11 @@ from sqlalchemy.orm import Session
 from . import crud, schemas
 from .database import Base, SessionLocal, engine
 
-app = FastAPI(title="Expense Tracker API")
+app = FastAPI(
+    title="Expense Tracker API",
+    version="1.0.0",
+    description="Backend API for the expense tracker assignment."
+)
 
 Base.metadata.create_all(bind=engine)
 
