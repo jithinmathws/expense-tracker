@@ -7,10 +7,13 @@ This is a minimal full-stack expense tracker that allows users to record and rev
 The application consists of a FastAPI backend and a Streamlit frontend, with a focus on correctness, simplicity, and maintainability within a time-constrained environment.
 
 ---
+
 ## Live Demo
 
-Frontend: <your-streamlit-link>
-Backend API: <your-render-link>
+Frontend: https://expense-tracker-ui.streamlit.app/
+Backend API: https://expense-tracker-api-mz99.onrender.com/
+
+---
 
 ## Features
 
@@ -87,12 +90,21 @@ The system is designed to behave correctly under realistic usage scenarios:
 
 ---
 
+## Testing
+
+Basic API tests are included to verify:
+
+* Expense creation
+* Duplicate prevention (retry-safe behavior)
+
+---
+
 ## Trade-offs
 
 * SQLite was used instead of a production-grade database (e.g., PostgreSQL) to reduce setup complexity.
 * Streamlit was chosen over a full frontend framework (e.g., React) for faster development and simplicity.
 * No authentication or multi-user support was implemented to keep the scope focused on core functionality.
-* Deployment configuration (e.g., environment-based API URLs) was kept minimal to prioritize working functionality.
+* Deployment configuration was kept minimal to prioritize working functionality within the time constraint.
 
 ---
 
@@ -102,7 +114,7 @@ The system is designed to behave correctly under realistic usage scenarios:
 * Editing or deleting expenses
 * Advanced filtering or search
 * Production-grade deployment setup
-* Extensive automated test coverage
+* Extensive automated test coverage (only core API behavior is tested)
 
 ---
 
@@ -132,14 +144,9 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
----
-
 * Ensure the backend is running before starting the frontend.
 
-## Live Demo
-
-Frontend: https://expense-tracker-ui.streamlit.app/
-Backend API: https://your-render-backend-url.onrender.com
+---
 
 ## Future Improvements
 
@@ -147,7 +154,7 @@ Backend API: https://your-render-backend-url.onrender.com
 * Add authentication and multi-user support
 * Introduce a more advanced frontend (e.g., React)
 * Improve validation and error handling
-* Add unit and integration tests
+* Add more comprehensive automated tests
 * Add category-wise summaries and analytics
 
 ---
@@ -156,12 +163,14 @@ Backend API: https://your-render-backend-url.onrender.com
 
 The application is deployed as two separate services:
 
-- The FastAPI backend is deployed on Render.
-- The Streamlit frontend is deployed on Streamlit Community Cloud.
+* The FastAPI backend is deployed on Render
+* The Streamlit frontend is deployed on Streamlit Community Cloud
 
 The frontend communicates with the backend via HTTP requests.
 
 Note: SQLite is used for persistence. On some hosting platforms, the filesystem may be ephemeral, so data may not persist across restarts. In a production system, this would be replaced with a managed database such as PostgreSQL.
+
+---
 
 ## Notes
 
