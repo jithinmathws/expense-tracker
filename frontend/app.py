@@ -96,6 +96,15 @@ def main() -> None:
             if not amount.strip() or not category.strip():
                 st.error("Amount and category are required.")
             else:
+                try:
+                    entered_amount = Decimal(amount.strip())
+                    if entered_amount <= 0:
+                        st.error("Amount must be greater than zero.")
+                        return
+                except InvalidOperation:
+                    st.error("Please enter a valid numeric amount.")
+                    return
+
                 success, message = create_expense(
                     amount=amount.strip(),
                     category=category.strip(),
@@ -104,6 +113,7 @@ def main() -> None:
                 )
                 if success:
                     st.success(message)
+                    st.rerun()
                 else:
                     st.error(message)
 
@@ -111,8 +121,8 @@ def main() -> None:
 
     try:
         all_expenses = fetch_expenses(sort="date_desc")
-    except requests.RequestException:
-        st.error("Could not load expenses from the backend API.")
+    except requests.RequestException as exc:
+        st.error(f"Could not load expenses from the backend API: {exc}")
         return
 
     categories = get_available_categories(all_expenses)
@@ -136,8 +146,8 @@ def main() -> None:
             category=selected_category,
             sort=sort_value,
         )
-    except requests.RequestException:
-        st.error("Could not refresh filtered expenses.")
+    except requests.RequestException as exc:
+        st.error(f"Could not refresh filtered expenses: {exc}")
         return
 
     with total_col:
