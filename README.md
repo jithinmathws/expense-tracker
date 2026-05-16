@@ -2,9 +2,14 @@
 
 ## Overview
 
-This is a minimal full-stack expense tracker that allows users to record and review personal expenses. The system is designed to behave correctly under real-world conditions such as retries, page refreshes, and unstable network behavior.
+This project is a lightweight backend-focused expense tracking system built with FastAPI and SQLite. The primary engineering focus was correctness, maintainability, and predictable behavior under real-world operational conditions such as retries, duplicate submissions, and unstable network behavior.
 
-The application consists of a FastAPI backend and a Streamlit frontend, with a focus on correctness, simplicity, and maintainability within a time-constrained environment.
+The system exposes RESTful APIs for expense creation and retrieval while ensuring retry-safe behavior through deterministic request deduplication. The implementation intentionally prioritizes simplicity, clear separation of concerns, and reliability over unnecessary complexity.
+
+The application consists of:
+
+* A FastAPI backend responsible for API logic, validation, persistence, and retry-safe request handling
+* A lightweight Streamlit frontend used for interacting with the backend APIs
 
 ---
 
@@ -36,6 +41,20 @@ Backend Docs: https://expense-tracker-api-mz99.onrender.com/docs
 
 ---
 
+## Engineering Focus
+
+The project was designed around a few core engineering goals:
+
+* Deterministic and retry-safe API behavior
+* Clear separation between frontend and backend responsibilities
+* Maintainable and testable backend code
+* Explicit handling of operational edge cases
+* Simplicity and readability over unnecessary abstraction
+
+Particular attention was given to ensuring the system behaves correctly under duplicate submissions and unstable network conditions, which are common sources of subtle production bugs in real-world systems.
+
+---
+
 ## Key Design Decisions
 
 ### Retry-safe Expense Creation
@@ -50,6 +69,7 @@ A deduplication key is generated based on:
 * date
 
 This key is stored with a unique constraint, ensuring that repeated submissions of the same expense do not create duplicate records. Instead, the existing record is returned.
+This approach was chosen to simulate idempotency behavior commonly used in production systems where retries, refreshes, or transient failures can otherwise create inconsistent state.
 
 ---
 
@@ -80,6 +100,22 @@ This separation improves clarity and makes the system easier to extend or replac
 
 ---
 
+## System Architecture
+
+```
+Streamlit Frontend
+        │
+        ▼
+FastAPI Backend
+        │
+        ▼
+SQLite Database
+```
+
+The frontend communicates with the backend exclusively through HTTP APIs. The backend is responsible for validation, deduplication logic, persistence, and business rules.
+
+---
+
 ## Handling Real-World Conditions
 
 The system is designed to behave correctly under realistic usage scenarios:
@@ -106,6 +142,7 @@ Basic API tests are included to verify:
 * Streamlit was chosen over a full frontend framework (e.g., React) for faster development and simplicity.
 * No authentication or multi-user support was implemented to keep the scope focused on core functionality.
 * Deployment configuration was kept minimal to prioritize working functionality within the time constraint.
+* The architecture intentionally avoids unnecessary abstractions to keep the codebase easy to reason about and discuss in an interview setting.
 
 ---
 
@@ -151,12 +188,13 @@ streamlit run app.py
 
 ## Future Improvements
 
-* Replace SQLite with PostgreSQL for scalability
-* Add authentication and multi-user support
-* Introduce a more advanced frontend (e.g., React)
-* Improve validation and error handling
-* Add more comprehensive automated tests
-* Add category-wise summaries and analytics
+* Replacing SQLite with PostgreSQL
+* Introducing async database access patterns
+* Adding structured logging and observability
+* Implementing authentication and multi-user isolation
+* Adding stronger automated test coverage
+* Introducing background job processing for asynchronous workflows
+* Adding metrics and monitoring for operational visibility
 
 ---
 
